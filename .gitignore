@@ -4,9 +4,6 @@ libsane-v330.so
 libsane-v330.so.1
 *.o
 
-# Epson proprietary firmware - obtain separately (see README)
-esfwad.bin
-
 # scratch / scan outputs
 testcfg/
 *.pnm

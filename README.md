@@ -30,18 +30,22 @@ headers (`libsane-dev`). It produces `v330scan` (CLI) and `libsane-v330.so.1`
 
 ## Firmware
 
-The scanner needs Epson's firmware blob `esfwad.bin` uploaded at power-on. It is
-**not included** in this repository (it is Epson proprietary and cannot be
-redistributed). Obtain it from Epson's Linux driver package:
+The scanner ships with only a minimal bootloader and needs the firmware blob
+`esfwad.bin` uploaded into its RAM at power-on before it can scan. The file is
+**included in this repository** so the driver works out of the box, and because
+Epson's own download links for it are not guaranteed to stay available.
 
-1. Download the `epsonscan2` bundle from
-   <https://support.epson.net/linux/en/epsonscan2.php> (or the
-   `epsonscan2-non-free-plugin` package).
-2. Extract it and copy `usr/share/epsonscan2/esfwad.bin` next to this driver, or
-   to `/usr/share/v330/` (where `make install` looks for it).
+**`esfwad.bin` is NOT covered by this project's MIT licence.** It is proprietary
+firmware, Copyright (c) Seiko Epson Corporation, extracted from Epson's Linux
+driver package (`epsonscan2` / `epsonscan2-non-free-plugin`,
+<https://support.epson.net/linux/en/epsonscan2.php>). It is redistributed here
+solely so that owners of the hardware can use their scanner on Linux. All rights
+remain with Epson, and it will be removed on request from the rights holder.
 
-The tool finds it via `$V330_FIRMWARE_DIR`, the `-f` flag, or a list of standard
-directories.
+The driver finds it via `$V330_FIRMWARE_DIR`, the `-f` flag, or a list of
+standard directories (including `/usr/share/v330/`, where `make install` puts
+it). It is uploaded only when the scanner is in its bootloader state; if the
+firmware is already resident from a previous scan, the file is not touched.
 
 ## Use the command-line tool
 
@@ -89,6 +93,7 @@ threshold, and scan-area geometry), so Simple Scan shows the usual controls.
 
 ## License
 
-MIT (see `LICENSE`). The bundled lookup tables in `tables.h` are small numeric
-calibration/gamma tables measured from the device. `esfwad.bin` is Epson's and
-is not distributed here.
+The driver code is MIT-licensed (see `LICENSE`). The lookup tables in `tables.h`
+are small numeric calibration/gamma tables measured from the device. The bundled
+`esfwad.bin` is Epson's proprietary firmware and is **not** under the MIT licence
+(see the Firmware section above).
