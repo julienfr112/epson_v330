@@ -1,0 +1,3 @@
+# EPSON Perfection V33/V330 (GT-F730/GT-S630) - USB 04b8:0142
+# Grant scanner access to the "scanner" group and tag it for SANE frontends.
+ATTRS{idVendor}=="04b8", ATTRS{idProduct}=="0142", MODE="0664", GROUP="scanner", ENV{libsane_matched}="yes"
